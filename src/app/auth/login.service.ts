@@ -28,7 +28,7 @@ export class LoginService {
   //   return this.http.post<string>(this.API+"/login", loginData, {responseType: 'text' as 'json'}); // Envie o objeto Login completo no corpo da solicitação
   // }
   login(loginData: { username: string, password: string }): Observable<any> {
-    const tokenEndpoint = `http://192.168.56.1:8080/realms/greenline/protocol/openid-connect/token`;
+    const tokenEndpoint = `https://192.168.56.108:8443/realms/greenline/protocol/openid-connect/token`;
   
     const body = new HttpParams()
       .set('client_id', 'greenline')
@@ -67,6 +67,7 @@ export class LoginService {
       accessToken = token.access_token;
     } else {
       console.error('Formato de token inesperado:', token);
+      window.location.href = 'https://192.168.56.109/home';
       return;
     }
   
@@ -75,6 +76,7 @@ export class LoginService {
       localStorage.setItem('token', accessToken);
     } else {
       console.error('Token de acesso não encontrado no objeto:', token);
+      window.location.href = 'https://192.168.56.109/home';
     }
   }
 
@@ -111,9 +113,10 @@ jwtDecode() {
             return false; // Retorna false em caso de erro
         }
     } else {
-        console.error('Token não encontrado');
-        return false;
-    }
+      console.error('Token não encontrado');
+      window.location.href = 'https://192.168.56.109/home';
+      return false;
+  }  
 }
 
 extractPayload(){
@@ -131,6 +134,7 @@ extractPayload(){
      return usuarioLogado;
    }else {
     console.error('Token não encontrado ou inválido');
+    window.location.href = 'https://192.168.56.109/home';
     return null;
   }
 

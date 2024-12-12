@@ -112,6 +112,7 @@ export class LoginComponent {
   
   // Função para cadastrar um novo usuário
   cadastrarNovoUsuario(usuarioLogado: LoginDao) {
+    console.log("Usuário logado:", usuarioLogado)
     this.cadastroService.save(usuarioLogado).subscribe({
       next: () => {
         console.log('Usuário salvo no banco de dados com sucesso:', usuarioLogado);
